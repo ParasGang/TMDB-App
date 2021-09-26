@@ -1,4 +1,4 @@
-package com.example.shirish_test_task
+package com.brewapps.tmdb.demo
 
 import io.flutter.embedding.android.FlutterActivity
 
