@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shirish_test_task/configurations/sizeconfig.dart';
+import 'package:shirish_test_task/controller/connectivity_controller.dart';
 import 'package:shirish_test_task/controller/movie_controller.dart';
 import 'package:shirish_test_task/controller/nav_bar_controller.dart';
 import 'package:shirish_test_task/view/movies_list_page.dart';
 import 'package:shirish_test_task/view/widgets/bottom_nav_bar_widget.dart';
 import 'package:shirish_test_task/view/widgets/change_theme_button_widget.dart';
+import 'package:shirish_test_task/view/widgets/custom_error_widget.dart';
 import 'package:shirish_test_task/view/widgets/search_bar.dart';
 
 class HomePage extends StatelessWidget {
   final MovieController _movieController = Get.put(MovieController());
   final NavBarController _navBarController = Get.put(NavBarController());
+  final ConnectivityController _connectivityController =
+      Get.put(ConnectivityController());
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -22,7 +26,15 @@ class HomePage extends StatelessWidget {
           // color: Theme.of(context).primaryColorLight.withOpacity(0.9),
           child: BottomNavBarWidget(),
         ),
-        body: HomePageBody(),
+        body: Obx(
+          () => _connectivityController.connectivity.value
+              ? HomePageBody()
+              : Center(
+                  child: CustomErrorWidget(
+                      title: "No Internet",
+                      subTitle: "Please Turn on your net and try again"),
+                ),
+        ),
       ),
     );
   }

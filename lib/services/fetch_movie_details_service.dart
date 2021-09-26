@@ -8,7 +8,8 @@ import 'package:shirish_test_task/services/api_failure.dart';
 import 'package:http/http.dart' as http;
 
 class FetchMovieDetailsService extends ApiBaseHelper {
-  Future<Either<ApiFailure, List<MovieDetailsModel>>> fetchmovies({@required  String movieType}) async {
+  Future<Either<ApiFailure, List<MovieDetailsModel>>> fetchmovies(
+      {@required String movieType}) async {
     try {
       http.Response response =
           await http.get(Uri.parse("$baseUrl/movie/$movieType$key"));
@@ -21,12 +22,13 @@ class FetchMovieDetailsService extends ApiBaseHelper {
         print(a);
         return right(a);
       });
-    } on SocketException catch (_) {
-      return left(ApiFailure.noInternet());
+    } on Exception catch (_) {
+      return left(ApiFailure.unExpected());
     }
   }
 
-  Future<Either<ApiFailure, List<MovieDetailsModel>>> searchmovies({@required  String query}) async {
+  Future<Either<ApiFailure, List<MovieDetailsModel>>> searchmovies(
+      {@required String query}) async {
     try {
       http.Response response =
           await http.get(Uri.parse("$baseUrl/search/movie$key&query=$query"));
@@ -39,8 +41,9 @@ class FetchMovieDetailsService extends ApiBaseHelper {
         print(a);
         return right(a);
       });
-    } on SocketException catch (_) {
-      return left(ApiFailure.noInternet());
+    } on Exception catch (e) {
+      print(e);
+      return left(ApiFailure.unExpected());
     }
   }
 }

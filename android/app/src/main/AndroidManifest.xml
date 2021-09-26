@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.shirish_test_task">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="shirish_test_task"
+        android:label="TMDB Test App"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
