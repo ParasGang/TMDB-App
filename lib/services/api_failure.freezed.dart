@@ -24,8 +24,10 @@ class _$ApiFailureTearOff {
   }
 
 // ignore: unused_element
-  _UnExpected unExpected() {
-    return const _UnExpected();
+  _UnExpected unExpected({String query}) {
+    return _UnExpected(
+      query: query,
+    );
   }
 
 // ignore: unused_element
@@ -44,14 +46,14 @@ mixin _$ApiFailure {
   TResult when<TResult extends Object>({
     @required TResult noInternet(),
     @required TResult unAuthorized(),
-    @required TResult unExpected(),
+    @required TResult unExpected(String query),
     @required TResult serverError(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
     TResult noInternet(),
     TResult unAuthorized(),
-    TResult unExpected(),
+    TResult unExpected(String query),
     TResult serverError(),
     @required TResult orElse(),
   });
@@ -134,7 +136,7 @@ class _$_NoInternet with DiagnosticableTreeMixin implements _NoInternet {
   TResult when<TResult extends Object>({
     @required TResult noInternet(),
     @required TResult unAuthorized(),
-    @required TResult unExpected(),
+    @required TResult unExpected(String query),
     @required TResult serverError(),
   }) {
     assert(noInternet != null);
@@ -149,7 +151,7 @@ class _$_NoInternet with DiagnosticableTreeMixin implements _NoInternet {
   TResult maybeWhen<TResult extends Object>({
     TResult noInternet(),
     TResult unAuthorized(),
-    TResult unExpected(),
+    TResult unExpected(String query),
     TResult serverError(),
     @required TResult orElse(),
   }) {
@@ -242,7 +244,7 @@ class _$_UnAuthorized with DiagnosticableTreeMixin implements _UnAuthorized {
   TResult when<TResult extends Object>({
     @required TResult noInternet(),
     @required TResult unAuthorized(),
-    @required TResult unExpected(),
+    @required TResult unExpected(String query),
     @required TResult serverError(),
   }) {
     assert(noInternet != null);
@@ -257,7 +259,7 @@ class _$_UnAuthorized with DiagnosticableTreeMixin implements _UnAuthorized {
   TResult maybeWhen<TResult extends Object>({
     TResult noInternet(),
     TResult unAuthorized(),
-    TResult unExpected(),
+    TResult unExpected(String query),
     TResult serverError(),
     @required TResult orElse(),
   }) {
@@ -309,6 +311,7 @@ abstract class _$UnExpectedCopyWith<$Res> {
   factory _$UnExpectedCopyWith(
           _UnExpected value, $Res Function(_UnExpected) then) =
       __$UnExpectedCopyWithImpl<$Res>;
+  $Res call({String query});
 }
 
 /// @nodoc
@@ -320,44 +323,67 @@ class __$UnExpectedCopyWithImpl<$Res> extends _$ApiFailureCopyWithImpl<$Res>
 
   @override
   _UnExpected get _value => super._value as _UnExpected;
+
+  @override
+  $Res call({
+    Object query = freezed,
+  }) {
+    return _then(_UnExpected(
+      query: query == freezed ? _value.query : query as String,
+    ));
+  }
 }
 
 /// @nodoc
 class _$_UnExpected with DiagnosticableTreeMixin implements _UnExpected {
-  const _$_UnExpected();
+  const _$_UnExpected({this.query});
+
+  @override
+  final String query;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ApiFailure.unExpected()';
+    return 'ApiFailure.unExpected(query: $query)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'ApiFailure.unExpected'));
+    properties
+      ..add(DiagnosticsProperty('type', 'ApiFailure.unExpected'))
+      ..add(DiagnosticsProperty('query', query));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _UnExpected);
+    return identical(this, other) ||
+        (other is _UnExpected &&
+            (identical(other.query, query) ||
+                const DeepCollectionEquality().equals(other.query, query)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(query);
+
+  @JsonKey(ignore: true)
+  @override
+  _$UnExpectedCopyWith<_UnExpected> get copyWith =>
+      __$UnExpectedCopyWithImpl<_UnExpected>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult noInternet(),
     @required TResult unAuthorized(),
-    @required TResult unExpected(),
+    @required TResult unExpected(String query),
     @required TResult serverError(),
   }) {
     assert(noInternet != null);
     assert(unAuthorized != null);
     assert(unExpected != null);
     assert(serverError != null);
-    return unExpected();
+    return unExpected(query);
   }
 
   @override
@@ -365,13 +391,13 @@ class _$_UnExpected with DiagnosticableTreeMixin implements _UnExpected {
   TResult maybeWhen<TResult extends Object>({
     TResult noInternet(),
     TResult unAuthorized(),
-    TResult unExpected(),
+    TResult unExpected(String query),
     TResult serverError(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (unExpected != null) {
-      return unExpected();
+      return unExpected(query);
     }
     return orElse();
   }
@@ -409,7 +435,11 @@ class _$_UnExpected with DiagnosticableTreeMixin implements _UnExpected {
 }
 
 abstract class _UnExpected implements ApiFailure {
-  const factory _UnExpected() = _$_UnExpected;
+  const factory _UnExpected({String query}) = _$_UnExpected;
+
+  String get query;
+  @JsonKey(ignore: true)
+  _$UnExpectedCopyWith<_UnExpected> get copyWith;
 }
 
 /// @nodoc
@@ -458,7 +488,7 @@ class _$_ServerError with DiagnosticableTreeMixin implements _ServerError {
   TResult when<TResult extends Object>({
     @required TResult noInternet(),
     @required TResult unAuthorized(),
-    @required TResult unExpected(),
+    @required TResult unExpected(String query),
     @required TResult serverError(),
   }) {
     assert(noInternet != null);
@@ -473,7 +503,7 @@ class _$_ServerError with DiagnosticableTreeMixin implements _ServerError {
   TResult maybeWhen<TResult extends Object>({
     TResult noInternet(),
     TResult unAuthorized(),
-    TResult unExpected(),
+    TResult unExpected(String query),
     TResult serverError(),
     @required TResult orElse(),
   }) {

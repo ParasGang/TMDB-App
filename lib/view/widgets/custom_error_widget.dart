@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shirish_test_task/configurations/sizeconfig.dart';
 import 'package:shirish_test_task/controller/movie_controller.dart';
+import 'package:shirish_test_task/controller/nav_bar_controller.dart';
 
 class CustomErrorWidget extends StatelessWidget {
   final MovieController _movieController = Get.find<MovieController>();
+  final NavBarController _navBarController = Get.find<NavBarController>();
   final String title;
   final String subTitle;
-  CustomErrorWidget({Key key, @required this.title, @required this.subTitle})
+  final String query;
+  CustomErrorWidget(
+      {Key key, @required this.title, @required this.subTitle, this.query})
       : super(key: key);
 
   @override
@@ -27,7 +31,13 @@ class CustomErrorWidget extends StatelessWidget {
           RaisedButton(
             color: Theme.of(context).cardColor,
             onPressed: () {
-              _movieController.fetchNowPlayingMovies();
+              if (_navBarController.index.value == 1) {
+                _movieController.fetchTopRatedMovies();
+              } else if (_navBarController.index.value == 3) {
+                _movieController.searchMovies(query);
+              } else {
+                _movieController.fetchNowPlayingMovies();
+              }
             },
             child: Text("Retry"),
           ),

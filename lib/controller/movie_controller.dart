@@ -21,7 +21,7 @@ class MovieController extends GetxController {
   void onInit() {
     super.onInit();
     fetchNowPlayingMovies();
-    fetchTopRatedMovies();
+    // fetchTopRatedMovies();
   }
 
   void fetchNowPlayingMovies() async {
@@ -35,6 +35,7 @@ class MovieController extends GetxController {
     loading.value = true;
     topRatedMovieList.value =
         await _fetchMovieDetailsService.fetchmovies(movieType: "top_rated");
+    print(topRatedMovieList.value);
     loading.value = false;
   }
 
