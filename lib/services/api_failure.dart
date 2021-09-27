@@ -7,6 +7,6 @@ part 'api_failure.freezed.dart';
 abstract class ApiFailure with _$ApiFailure {
   const factory ApiFailure.noInternet() = _NoInternet;
   const factory ApiFailure.unAuthorized() = _UnAuthorized;
-  const factory ApiFailure.unExpected() = _UnExpected;
+  const factory ApiFailure.unExpected({String query}) = _UnExpected;
   const factory ApiFailure.serverError() = _ServerError;
 }

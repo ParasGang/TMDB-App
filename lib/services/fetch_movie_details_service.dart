@@ -32,9 +32,12 @@ class FetchMovieDetailsService extends ApiBaseHelper {
     try {
       http.Response response =
           await http.get(Uri.parse("$baseUrl/search/movie$key&query=$query"));
+      print("$baseUrl/search/movie$key&query=$query");
       final Either<ApiFailure, dynamic> responseJson = returnResponse(response);
+
       return responseJson.fold((l) => left(l), (r) {
         List temp = r["results"] as List;
+        
         List a = temp
             .map((e) => MovieDetailsModel.fromJson(e as Map<String, dynamic>))
             .toList();
@@ -43,7 +46,7 @@ class FetchMovieDetailsService extends ApiBaseHelper {
       });
     } on Exception catch (e) {
       print(e);
-      return left(ApiFailure.unExpected());
+      return left(ApiFailure.unExpected(query: query));
     }
   }
 }
