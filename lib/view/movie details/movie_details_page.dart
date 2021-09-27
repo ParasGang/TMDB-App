@@ -12,28 +12,25 @@ class MovieDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).cardColor,
-            iconTheme: IconThemeData(
-              color: Theme.of(context).focusColor, //change your color here
-            ),
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).cardColor,
+          iconTheme: IconThemeData(
+            color: Theme.of(context).focusColor, //change your color here
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                MovieBackdropWidget(movieDetails: movieDetails),
-                MovieTitleWidget(
-                  title: movieDetails.title,
-                ),
-                MovieReleaseDateWidget(
-                    date: movieDetails.releaseDate.toString()),
-                MovieRatingsWidget(ratings: movieDetails.voteAverage),
-                MovieOverviewWidget(overview: movieDetails.overview)
-              ],
-            ),
-          )),
-    );
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              MovieBackdropWidget(movieDetails: movieDetails),
+              MovieTitleWidget(
+                title: movieDetails.title,
+              ),
+              MovieReleaseDateWidget(date: movieDetails.releaseDate.toString()),
+              MovieRatingsWidget(ratings: movieDetails.voteAverage),
+              MovieOverviewWidget(overview: movieDetails.overview)
+            ],
+          ),
+        ));
   }
 }

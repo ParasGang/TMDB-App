@@ -19,22 +19,20 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: BottomAppBar(
-          elevation: 10.0,
-          // color: Theme.of(context).primaryColorLight.withOpacity(0.9),
-          child: BottomNavBarWidget(),
-        ),
-        body: Obx(
-          () => _connectivityController.connectivity.value
-              ? HomePageBody()
-              : Center(
-                  child: CustomErrorWidget(
-                      title: "No Internet",
-                      subTitle: "Please Turn on your net and try again"),
-                ),
-        ),
+    return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        elevation: 10.0,
+        // color: Theme.of(context).primaryColorLight.withOpacity(0.9),
+        child: BottomNavBarWidget(),
+      ),
+      body: Obx(
+        () => _connectivityController.connectivity.value
+            ? HomePageBody()
+            : Center(
+                child: CustomErrorWidget(
+                    title: "No Internet",
+                    subTitle: "Please Turn on your net and try again"),
+              ),
       ),
     );
   }
@@ -49,13 +47,19 @@ class HomePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(child: SearchBar(onTap: (String value) {
-              _movieController.searchMovies(value);
-            })),
-            ChangeThemeButtonWidget()
-          ],
+        SizedBox(
+          height: 24.vertical(),
+        ),
+        Container(
+          // color: Colors.red,
+          child: Row(
+            children: [
+              Expanded(child: SearchBar(onTap: (String value) {
+                _movieController.searchMovies(value);
+              })),
+              ChangeThemeButtonWidget()
+            ],
+          ),
         ),
         Obx(
           () => _movieController.loading.value

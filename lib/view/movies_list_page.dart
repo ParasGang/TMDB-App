@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shirish_test_task/configurations/sizeconfig.dart';
@@ -34,12 +37,17 @@ class MoviesListPage extends StatelessWidget {
         child: ListView.builder(
             physics: BouncingScrollPhysics(),
             itemCount: movieList.length,
+            
             itemBuilder: (context, index) {
               MovieDetailsModel movie = movieList[index];
 
               return GestureDetector(
                 onTap: () {
-                  Get.to(() => MovieDetailsPage(movieDetails: movie));
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) =>
+                              MovieDetailsPage(movieDetails: movie)));
                 },
                 child: Stack(
                   children: [
@@ -116,12 +124,10 @@ class MoviesListPage extends StatelessWidget {
                       ).paddingAll(15),
                     ),
                   ],
-                ).paddingSymmetric(horizontal: 15, vertical: 10),
+                ).paddingSymmetric(horizontal: 15).paddingBottom(20),
               );
             }),
       );
     });
   }
 }
-
-
